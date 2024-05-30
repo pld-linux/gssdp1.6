@@ -3,6 +3,7 @@
 %bcond_without	apidocs	# gi-docgen based API documentation
 %bcond_without	vala	# Vala bindings
 %bcond_without	sniffer	# sniffer package (GUI)
+%bcond_without	doc	# man pages
 
 Summary:	GObject-based SSDP (Simple Service Discovery Protocol) library
 Summary(pl.UTF-8):	Biblioteka SSDP (Simple Service Discovery Protocol) oparta na GObject
@@ -23,6 +24,7 @@ BuildRequires:	gobject-introspection-devel >= 1.36.0
 BuildRequires:	libsoup3-devel >= 3.0
 BuildRequires:	meson >= 0.54.0
 BuildRequires:	ninja >= 1.5
+%{?with_doc:BuildRequires:	pandoc}
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.029
@@ -113,7 +115,8 @@ Graficzny sniffer SSDP.
 %build
 %meson build \
 	%{?with_apidocs:-Dgtk_doc=true} \
-	%{!?with_sniffer:-Dsniffer=false}
+	%{!?with_sniffer:-Dsniffer=false} \
+	%{!?with_doc:-Dmanpages=false}
 
 %ninja_build -C build
 
@@ -168,5 +171,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gssdp-sniffer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gssdp-device-sniffer
-%{_mandir}/man1/gssdp-device-sniffer.1*
+%{?with_doc:%{_mandir}/man1/gssdp-device-sniffer.1*}
 %endif
