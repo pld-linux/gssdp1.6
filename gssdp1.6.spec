@@ -4,7 +4,7 @@
 %bcond_without	vala		# Vala bindings
 %bcond_without	sniffer		# sniffer package (GUI)
 %bcond_without	doc		# man pages
-%bcond_without	static_libs	# man pages
+%bcond_without	static_libs	# static library
 
 Summary:	GObject-based SSDP (Simple Service Discovery Protocol) library
 Summary(pl.UTF-8):	Biblioteka SSDP (Simple Service Discovery Protocol) oparta na GObject
