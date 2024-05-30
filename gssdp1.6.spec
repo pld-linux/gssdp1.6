@@ -1,9 +1,10 @@
 #
 # Conditional build:
-%bcond_without	apidocs	# gi-docgen based API documentation
-%bcond_without	vala	# Vala bindings
-%bcond_without	sniffer	# sniffer package (GUI)
-%bcond_without	doc	# man pages
+%bcond_without	apidocs		# gi-docgen based API documentation
+%bcond_without	vala		# Vala bindings
+%bcond_without	sniffer		# sniffer package (GUI)
+%bcond_without	doc		# man pages
+%bcond_without	static_libs	# man pages
 
 Summary:	GObject-based SSDP (Simple Service Discovery Protocol) library
 Summary(pl.UTF-8):	Biblioteka SSDP (Simple Service Discovery Protocol) oparta na GObject
@@ -114,6 +115,7 @@ Graficzny sniffer SSDP.
 
 %build
 %meson build \
+	%{!?with_static_libs:--default-library=shared} \
 	%{?with_apidocs:-Dgtk_doc=true} \
 	%{!?with_sniffer:-Dsniffer=false} \
 	%{!?with_doc:-Dmanpages=false}
@@ -150,9 +152,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/gssdp-1.6
 %{_pkgconfigdir}/gssdp-1.6.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgssdp-1.6.a
+%endif
 
 %if %{with apidocs}
 %files apidocs
