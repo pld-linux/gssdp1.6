@@ -114,18 +114,18 @@ Graficzny sniffer SSDP.
 %setup -q -n gssdp-%{version}
 
 %build
-%meson build \
+%meson \
 	%{!?with_static_libs:--default-library=shared} \
 	%{?with_apidocs:-Dgtk_doc=true} \
 	%{!?with_sniffer:-Dsniffer=false} \
 	%{!?with_doc:-Dmanpages=false}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_gidocdir}
