@@ -28,7 +28,7 @@ BuildRequires:	ninja >= 1.5
 %{?with_doc:BuildRequires:	pandoc}
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 2.029
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala >= 2:0.20}
 BuildRequires:	xz
